@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "range_finder.h": "c",
+        "team404_imagerecognition.h": "c",
+        "team404_keyboard_control.h": "c",
+        "keyboard.h": "c",
+        "team404_basic_algorithm.h": "c",
+        "robot.h": "c",
+        "team404_helper.h": "c",
+        "supervisor.h": "c",
+        "arm.h": "c",
+        "gripper.h": "c"
+    }
+}
