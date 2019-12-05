@@ -6,22 +6,23 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+
 /*
 void dump_recieved_packets(WbDeviceTag receiver)
 {
     while (wb_receiver_get_queue_length(receiver) > 0)
     {
-        wb_receiver_next_packet(receiver);
+        wb_reciever_next_packet(receiver);
     }
 }
 */
 
-int construct_message( Message command,char *message, int message_length)
+int construct_message(Message_head* head,char *message, int message_length)
 {
-    if(command.data_length+1 == message_length){
-        message[0] = command.type;
-        for(int i=0; i< command.data_length;i++){
-            message[i+1] = command.data[i+1];
+    if(command->data_length+1 == message_length){
+        message[0] = command->type;
+        for(int i=0; i< command->data_length;i++){
+            message[i+1] = command->data[i];
         }
         return 0;
     }
@@ -47,13 +48,19 @@ int get_data_length(char command_type){
 
     }
 }
-int receive_message(char* message,int message_size,Message command){
-    command.type = message[0];
-    command.data_length = message_size -1;
-    if(command.data_length != 0){
-        for(int i=0; i<command.data_length;i++){
-            command.data[i+1] = message[i+1];
+int receive_message(const char* message,int message_size,Message* command){
+    command->type = message[0];
+    command->data_length = message_size -1;
+    //printf("hell\n");
+    if(command->data_length != 0){
+        for(int i=0; i<command->data_length;i++){
+            command->data[i] = message[i+1];
+            //printf("%c\n",message[i+1]);
         }
+        return 0;
+    }
+    else{
+        return 1;
     }
 
 }

@@ -15,6 +15,6 @@ double get_distance(double* position1, double* position2);
 void get_nearest_box(COLOUR color, BOX *box_array, double current_position[2],BOX *closest_box);
 void blob_to_box(COLOUR color, Blob *sblob, BOX *sbox, int id);
 void blob_array_to_box_array(Blob *blob_array, BOX *box_array, COLOUR color, int box_count);
-
+double find_tower_height(const float* rfimage,int rf_width);
 
 #endif

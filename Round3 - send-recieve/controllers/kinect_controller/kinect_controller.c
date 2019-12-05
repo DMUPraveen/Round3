@@ -129,8 +129,8 @@ int main(int argc, char **argv) {
     filter_range_image(r_filter_array,range_finder,rf_width,rf_height,2.88);
     //display_show_range(r_filter_array,rf_width,rf_height,display);
     //printf("%f\n",get_range_finder_image(range_finder,rf_width,rf_height));
-    float tower_height = 2.895 - wb_range_finder_image_get_depth(rfimage,rf_width,152,125);
-    //printf("cal_height:%f, real_height:%f\n",tower_height,rvalue);
+    //float tower_height = 2.895 - wb_range_finder_image_get_depth(rfimage,rf_width,152,125);
+    //printf("cal_height:%f, real_height:%f\n",find_tower_height(rfimage,rf_width),rvalue);
     //draw_display(display,&camera_image);
     findblobs(blob_array,filter_array,width,height,5,50);
     
@@ -140,16 +140,30 @@ int main(int argc, char **argv) {
     //printf("%d\n",key);
     if(key == 65){
       //if letter a is pressed send in the message hello
-      Message my_message;
+      Command scommand;
+      scommand.id = 0;
+      scommand.type = 3;
+      char* data_holder = "hello";
+      scommand.data = data_holder;
+      scommand.data_length = strlen(data_holder)+1;
+      const int byte_stream_length = get_byte_stream_length(scommand.data_length); 
+      char byte_stream[byte_stream_length];
       
-      char* text = "hello";
-      my_message.data = text;
-      my_message.type = 3;
-      my_message.data_length = strlen(text) +1;
-      char pmessage[my_message.data_length+1];
-      construct_message(my_message,pmessage,my_message.data_length+1);
-      int status = wb_emitter_send(EMITTER,pmessage,my_message.data_length+1);
+      construct_message(&scommand,byte_stream,byte_stream_length);
+      int status = wb_emitter_send(EMITTER,byte_stream,byte_stream_length);
       blob_array_to_box_array(blob_array,BOX_ARRAY,RED,50);
+
+    }
+    if(key ==66){
+      printf("sending a position\n");
+      double position[3] = {1.5,3.14,2.7};
+      Command goto_command;
+      construct_goto_command(0,position,&goto_command);
+      const int byte_stream_length = get_byte_stream_length(goto_command.data_length);
+      char byte_stream[byte_stream_length];
+      construct_message(&goto_command,byte_stream,byte_stream_length);
+      wb_emitter_send(EMITTER,byte_stream,byte_stream_length);
+      //blob_array_to_box_array(blob_array,BOX_ARRAY,RED,50);
 
     }
 

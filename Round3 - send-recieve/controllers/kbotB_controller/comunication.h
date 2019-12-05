@@ -18,13 +18,18 @@ typedef struct comunication{
 
 }comunicator;
 
-typedef struct message{
+typedef struct command{
     char type;
-    
+    char id;
     int data_length;
-    char data[];
-}Message;
-int construct_message( Message command,char *message, int message_length);
-int receive_message(const char* message,int message_size,Message* command);
+    char* data
+}Command;
 
+
+int deconstruct_message(const char *message, int message_size, Command *scommand, char *data_holder, int data_holder_length);
+int get_data_length(int size);
+int construct_message(Command *scommand, char *byte_stream, int stream_length);
+int get_byte_stream_length(int data_length);
+void get_target_position(char* data,double* position);
+void construct_goto_command(char robot,double* position,Command* goto_command);
 #endif

@@ -1,11 +1,16 @@
 #include <stdio.h>
 #include <math.h>
+#include <webots/range_finder.h>
 #include "navigation.h"
 
 #define PIXEL_WIDTH 250
 #define PIXEL_HEIGHT 250
 #define FLOOR_WIDTH 10
 #define FLOOR_HEIGHT 10
+const int tower_position_x = 152;
+const int tower_position_y = 125;
+const double distance_to_floor = 2.895;
+
 
 void image_postion_to_cordinate(int image_pos[2], double cordinate_pos[2])
 {
@@ -71,4 +76,9 @@ void blob_array_to_box_array(Blob *blob_array, BOX *box_array, COLOUR color, int
             break;
         }
     }
+}
+
+double find_tower_height(const float* rfimage,int rf_width){
+    double tower_height = distance_to_floor - wb_range_finder_image_get_depth(rfimage,rf_width,tower_position_x,tower_position_y);
+    return tower_height;
 }

@@ -68,10 +68,24 @@ int main(int argc, char **argv)
       printf("recieved\n");
       const char *message = wb_receiver_get_data(RECIEVER);
       int message_length = wb_receiver_get_data_size(RECIEVER);
-      int num = (int)message[0];
-      Message my_message;
-      receive_message(message,message_length,&my_message);
-      printf("type: %d, data: %s\n", my_message.type, my_message.data);
+      
+      Command scommand;
+      char data_holder[get_data_length(message_length)];
+      deconstruct_message(message,message_length,&scommand,data_holder,get_data_length(message_length));
+      //receive_message(message,message_length,&my_message);
+      //printf("type: %d, data: %s\n", my_message.type, my_message.data);
+      //printf("%d,%d,%s\n",message[0],message[1],&message[2]);
+      if(scommand.type == 3){
+      printf("id:%d,type:%d,data:%s,data_length:%d\n",scommand.id,scommand.type,scommand.data,scommand.data_length);
+      
+      }
+      if(scommand.type == 1 ){
+        double position[3];
+        get_target_position(scommand.data,position);
+        printf("x:%g,y:%g,z:%g\n",position[0],position[1],position[2]);
+        
+
+      }
       wb_receiver_next_packet(RECIEVER);
     }
   }
