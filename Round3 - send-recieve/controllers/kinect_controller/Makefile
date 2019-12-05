@@ -16,7 +16,7 @@
 #
 # You may add some variable definitions hereafter to customize the build process
 # See documentation in $(WEBOTS_HOME_PATH)/resources/Makefile.include
-C_SOURCES = image_recognition.c kinect_controller.c
+C_SOURCES = image_recognition.c kinect_controller.c range_finder_lib.c navigation.c comunication.c
 
 space :=
 space +=

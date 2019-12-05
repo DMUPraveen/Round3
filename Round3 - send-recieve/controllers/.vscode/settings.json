@@ -12,6 +12,9 @@
         "gripper.h": "c",
         "base.h": "c",
         "nodes.h": "c",
-        "image_recognition.h": "c"
+        "image_recognition.h": "c",
+        "compass.h": "c",
+        "range_finder_lib.h": "c",
+        "receiver.h": "c"
     }
 }

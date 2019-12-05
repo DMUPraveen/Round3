@@ -14,6 +14,9 @@
 #include <time.h>
 
 #include "image_recognition.h"
+#include "range_finder_lib.h"
+#include "navigation.h"
+#include "comunication.h"
 
 #define TIME_STEP 16
 
@@ -25,7 +28,8 @@ int main(int argc, char **argv) {
   int key;
   COLOUR blob_color =RED;
   FILE *file;
-    
+  
+  
   // initialization: range finder
   int rf_width, rf_height;
   float distance;
@@ -110,6 +114,7 @@ int main(int argc, char **argv) {
   num = 0;
   int camera_image[height*width][3];
   int filter_array[height*width];
+  int r_filter_array[rf_height*rf_width];
 
   // Main loop
   while (wb_robot_step(TIME_STEP) != -1) {
@@ -117,24 +122,34 @@ int main(int argc, char **argv) {
     const float *rfimage = wb_range_finder_get_range_image(range_finder);
     const unsigned char *image = wb_camera_get_image(camera);
     Blob blob_array[50] = BLOB_ARRAY;
+    BOX BOX_ARRAY[50] = BLOB_ARRAY;
     get_image(camera,width,height,camera_image);
     draw_display(display,camera_image,width,height);
     filter_image(camera_image,filter_array,width,height,blob_color);
-    
-
+    filter_range_image(r_filter_array,range_finder,rf_width,rf_height,2.88);
+    //display_show_range(r_filter_array,rf_width,rf_height,display);
+    //printf("%f\n",get_range_finder_image(range_finder,rf_width,rf_height));
+    float tower_height = 2.895 - wb_range_finder_image_get_depth(rfimage,rf_width,152,125);
+    //printf("cal_height:%f, real_height:%f\n",tower_height,rvalue);
     //draw_display(display,&camera_image);
     findblobs(blob_array,filter_array,width,height,5,50);
+    
     Draw_blobs(display,blob_array);
     
     key = wb_keyboard_get_key();
+    //printf("%d\n",key);
     if(key == 65){
       //if letter a is pressed send in the message hello
-      char message[128];
-      num++;
-      sprintf(message, "hello%d",num);
-      printf("%s\n",message);
-      int status = wb_emitter_send(EMITTER,message,strlen(message)+1);
-      printf("status:%d\n",status);
+      Message my_message;
+      
+      char* text = "hello";
+      my_message.data = text;
+      my_message.type = 3;
+      my_message.data_length = strlen(text) +1;
+      char pmessage[my_message.data_length+1];
+      construct_message(my_message,pmessage,my_message.data_length+1);
+      int status = wb_emitter_send(EMITTER,pmessage,my_message.data_length+1);
+      blob_array_to_box_array(blob_array,BOX_ARRAY,RED,50);
 
     }
 

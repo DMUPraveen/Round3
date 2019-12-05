@@ -73,6 +73,8 @@ DEF KINECTS Robot {
   translation 0 2.9 0
   rotation 1 0 0 -1.572
   children [
+    Receiver {
+    }
     Display {
       width 250
       height 250
@@ -98,6 +100,12 @@ DEF KBOTB Youbot {
   controller "kbotB_controller"
   supervisor TRUE
   bodySlot [
+    Emitter {
+    }
+    Compass {
+    }
+    GPS {
+    }
     Receiver {
     }
   ]
@@ -689,7 +697,7 @@ DEF TOWER Solid {
         }
       }
       geometry DEF TOWER_cy Cylinder {
-        height 0.3100000023841858
+        height 0.44999998807907104
         radius 0.1
       }
     }

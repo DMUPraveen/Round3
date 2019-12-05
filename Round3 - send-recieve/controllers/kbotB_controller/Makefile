@@ -16,6 +16,8 @@
 #
 # You may add some variable definitions hereafter to customize the build process
 # See documentation in $(WEBOTS_HOME_PATH)/resources/Makefile.include
+C_SOURCES = comunication.c kbotB_controller.c
+
 
 space :=
 space +=
