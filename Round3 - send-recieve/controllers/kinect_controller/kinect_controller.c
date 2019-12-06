@@ -17,8 +17,11 @@
 #include "range_finder_lib.h"
 #include "navigation.h"
 #include "comunication.h"
+#include "air_control.h"
 
 #define TIME_STEP 16
+#define SELF_ID 0
+#define KBOTB_ID 1
 
 
 int main(int argc, char **argv) {
@@ -28,7 +31,7 @@ int main(int argc, char **argv) {
   int key;
   COLOUR blob_color =RED;
   FILE *file;
-  
+  int kbotB_status =0;
   
   // initialization: range finder
   int rf_width, rf_height;
@@ -137,6 +140,7 @@ int main(int argc, char **argv) {
     
     //Draw_blobs(display,blob_array);
     
+  /*
     key = wb_keyboard_get_key();
     //printf("%d\n",key);
     if(key == 65){
@@ -167,7 +171,7 @@ int main(int argc, char **argv) {
       //blob_array_to_box_array(blob_array,BOX_ARRAY,RED,50);
 
     }
-    /*
+  
     if (wb_receiver_get_queue_length(RECIEVER) > 0)
     {
       printf("recieved\n");
@@ -182,18 +186,30 @@ int main(int argc, char **argv) {
       wb_receiver_next_packet(RECIEVER);
     }
     
-   */
+  */
+    if(kbotB_status ==0){
+      kbotB_status =1;
+      double position[3] = {4,4,0};
+      send_goto_command(EMITTER,KBOTB_ID,position);
+      printf("sending goto message to KbotB\n");
+
+    };
     Command command;
-    int message_recieved = message_handler(RECIEVER,0,&command);
+    int message_recieved = message_handler(RECIEVER,SELF_ID,&command);
     //printf("%d\n",message_recieved);
     if(message_recieved){
-      command.data[3] =65;
-      printf("%d,%d,%s,%d\n",command.id,command.type,command.data,command.data_length);
-      
+      //command.data[3] =65;
+      //printf("%d,%d,%s,%d\n",command.id,command.type,command.data,command.data_length);
+      if(command.type == REACHED){
+        //printf("boom%d\n",kbotB_status);
+        kbotB_status =2;
+        printf("KbotB has reached its destination\n");
+      }
       delete_command(&command);
       //free(command.data);
     }
-    
+
+  /*  
    switch(key){
      case 82:
        blob_color = RED;
@@ -208,7 +224,7 @@ int main(int argc, char **argv) {
         blob_color = BLUE;
         break;
    }
-    
+  */  
     /*
     // put the depth array (rfimage) in a file
     file = fopen("depth_array.txt", "w");

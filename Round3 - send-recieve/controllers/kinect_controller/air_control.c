@@ -19,12 +19,22 @@ void request_robot_position(WbDeviceTag emitter,char ROBOT_ID){
 void send_goto_command(WbDeviceTag emitter,char ROBOT_ID,double position[3]){
     Command goto_command;
     goto_command.id = ROBOT_ID;
+    goto_command.type = GOTO;
     goto_command.data_length = sizeof(double)*3;
     char* cpositions = (char*)position;
-    char* data_holder[goto_command.data_length];
+    char data_holder[goto_command.data_length];
     for(int i=0; i<goto_command.data_length; i++){
         data_holder[i] = cpositions[i];
     }
     goto_command.data = data_holder;
     send_message(&goto_command,emitter); 
+}
+
+void send_do_animation_command(WbDeviceTag emmiter,char ROBOT_ID,char ANIMATION){
+    Command do_animation;
+    do_animation.id = ROBOT_ID;
+    do_animation.data_length = 1;
+    do_animation.data = &ANIMATION;
+    do_animation.type = DO_ANIMATION;
+    send_message(&do_animation,emmiter);
 }

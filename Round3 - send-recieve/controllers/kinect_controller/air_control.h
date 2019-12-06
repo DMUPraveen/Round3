@@ -2,7 +2,8 @@
 #define AIR_CONTROL
 enum transmitted_messages{
         GOTO = 1,
-        REQUEST_POSITION = 3
+        REQUEST_POSITION = 3,
+        DO_ANIMATION = 5
 };
 
 enum recieved_messages{

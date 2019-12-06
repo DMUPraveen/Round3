@@ -11,4 +11,5 @@ build/release/kinect_controller.o: kinect_controller.c \
  C:\Users\USER\AppData\Local\Programs\Webots/include/controller/c/webots/keyboard.h \
  C:\Users\USER\AppData\Local\Programs\Webots/include/controller/c/webots/display.h \
  image_recognition.h range_finder_lib.h navigation.h comunication.h \
- C:\Users\USER\AppData\Local\Programs\Webots/include/controller/c/webots/receiver.h
+ C:\Users\USER\AppData\Local\Programs\Webots/include/controller/c/webots/receiver.h \
+ air_control.h

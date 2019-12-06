@@ -7,12 +7,12 @@ centralWidgetVisible: 1
 selectionDisabled: 0
 viewpointLocked: 0
 orthographicViewHeight: 1
-textFiles: 2 "controllers/kbotB_controller/kbotB_controller.c" "controllers/kbotR_controller/kbotR_controller.c" "controllers/kinect_controller/kinect_controller.c"
+textFiles: 0 "controllers/kbotB_controller/kbotB_controller.c" "controllers/kbotR_controller/kbotR_controller.c" "controllers/kinect_controller/kinect_controller.c"
 globalOptionalRendering: CameraFrustums::RangeFinderFrustums
-renderingDevicePerspectives: robot:kinect color;1;0.904;0;0
-renderingDevicePerspectives: robot:display;1;1.072;0;0
-renderingDevicePerspectives: robot:kinect range;1;0.684;0.483582;0
-renderingDevicePerspectives: KBOT:range-finder;0;0.773438;0.656947;0.0728291
-renderingDevicePerspectives: KBOT:camera;0;0.41;0;0
 renderingDevicePerspectives: KBOT:kinect color;1;2.5625;0.00545703;0
 renderingDevicePerspectives: KBOT:kinect range;1;2.2125;0.740792;0
+renderingDevicePerspectives: KBOT:range-finder;0;0.773438;0.656947;0.0728291
+renderingDevicePerspectives: robot:kinect range;1;0.684;0.68315;0
+renderingDevicePerspectives: robot:display;1;0.576;0.419414;0
+renderingDevicePerspectives: KBOT:camera;0;0.41;0;0
+renderingDevicePerspectives: robot:kinect color;1;0.508;0;0

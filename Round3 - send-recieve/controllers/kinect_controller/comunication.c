@@ -120,22 +120,22 @@ int deconstruct_message(const char *message, int message_size, Command *scommand
 }
 
 void delete_command(Command* scommand){
-    printf("scommand:data%d\n",scommand->data);
+    //printf("scommand:data%d\n",scommand->data);
     free(scommand->data);
 }
 
 int message_handler(WbDeviceTag reciever,char ROBOT_ID,Command* scommand){
     int is_message_recieved =0;
     if(wb_receiver_get_queue_length(reciever)>0){
-        printf("recieved\n");
+        //printf("recieved\n");
         int message_size = wb_receiver_get_data_size(reciever); 
         char* message = wb_receiver_get_data(reciever);
         int data_holder_size = get_data_length(message_size);
         char* data_holder = (char*)malloc(data_holder_size);
         deconstruct_message(message,message_size,scommand,data_holder,data_holder_size);
         wb_receiver_next_packet(reciever);
-        printf("%d\n",scommand->type);
-        printf("data_holder:%d\n",data_holder);
+        //printf("%d\n",scommand->type);
+        //printf("data_holder:%d\n",data_holder);
         if((scommand->id) == ROBOT_ID){
             return 1;
         }
