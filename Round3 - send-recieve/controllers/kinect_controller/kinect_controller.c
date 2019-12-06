@@ -58,8 +58,9 @@ int main(int argc, char **argv) {
 
   //intializing the emitter
   WbDeviceTag EMITTER;
+  WbDeviceTag RECIEVER;
   EMITTER = wb_robot_get_device("emitter");
-  
+  RECIEVER = wb_robot_get_device("receiver");
   // initialization: color-boxes
   int i, j;
   int no_boxes = 30;
@@ -115,7 +116,7 @@ int main(int argc, char **argv) {
   int camera_image[height*width][3];
   int filter_array[height*width];
   int r_filter_array[rf_height*rf_width];
-
+  wb_receiver_enable(RECIEVER,TIME_STEP);
   // Main loop
   while (wb_robot_step(TIME_STEP) != -1) {
     // collection of range-finder and camera images
@@ -124,7 +125,7 @@ int main(int argc, char **argv) {
     Blob blob_array[50] = BLOB_ARRAY;
     BOX BOX_ARRAY[50] = BLOB_ARRAY;
     get_image(camera,width,height,camera_image);
-    draw_display(display,camera_image,width,height);
+    //draw_display(display,camera_image,width,height);
     filter_image(camera_image,filter_array,width,height,blob_color);
     filter_range_image(r_filter_array,range_finder,rf_width,rf_height,2.88);
     //display_show_range(r_filter_array,rf_width,rf_height,display);
@@ -132,9 +133,9 @@ int main(int argc, char **argv) {
     //float tower_height = 2.895 - wb_range_finder_image_get_depth(rfimage,rf_width,152,125);
     //printf("cal_height:%f, real_height:%f\n",find_tower_height(rfimage,rf_width),rvalue);
     //draw_display(display,&camera_image);
-    findblobs(blob_array,filter_array,width,height,5,50);
+    //findblobs(blob_array,filter_array,width,height,5,50);
     
-    Draw_blobs(display,blob_array);
+    //Draw_blobs(display,blob_array);
     
     key = wb_keyboard_get_key();
     //printf("%d\n",key);
@@ -166,7 +167,33 @@ int main(int argc, char **argv) {
       //blob_array_to_box_array(blob_array,BOX_ARRAY,RED,50);
 
     }
-
+    /*
+    if (wb_receiver_get_queue_length(RECIEVER) > 0)
+    {
+      printf("recieved\n");
+      const char *message = wb_receiver_get_data(RECIEVER);
+      int message_length = wb_receiver_get_data_size(RECIEVER);
+      
+      Command scommand;
+      char data_holder[get_data_length(message_length)];
+      deconstruct_message(message,message_length,&scommand,data_holder,get_data_length(message_length));
+      //double* positions = (double*)scommand.data;
+      printf("%d,%d,%s,%d\n",scommand.id,scommand.type,scommand.data,scommand.data_length);
+      wb_receiver_next_packet(RECIEVER);
+    }
+    
+   */
+    Command command;
+    int message_recieved = message_handler(RECIEVER,0,&command);
+    //printf("%d\n",message_recieved);
+    if(message_recieved){
+      command.data[3] =65;
+      printf("%d,%d,%s,%d\n",command.id,command.type,command.data,command.data_length);
+      
+      delete_command(&command);
+      //free(command.data);
+    }
+    
    switch(key){
      case 82:
        blob_color = RED;

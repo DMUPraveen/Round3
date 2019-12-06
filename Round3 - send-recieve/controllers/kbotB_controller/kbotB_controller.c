@@ -4,6 +4,7 @@
 #include <webots/receiver.h>
 #include <webots/compass.h>
 #include <webots/gps.h>
+#include <webots/keyboard.h>
 
 #include <arm.h>
 #include <base.h>
@@ -16,6 +17,7 @@
 #include <time.h>
 
 #include "comunication.h"
+#include "ground_control.h"
 
 #define TIME_STEP 16
 double get_bearing_in_degrees(WbDeviceTag compass) {
@@ -33,7 +35,9 @@ int main(int argc, char **argv)
 
   //intializing the reciver
   WbDeviceTag RECIEVER;
+  WbDeviceTag EMMITER;
   RECIEVER = wb_robot_get_device("receiver");
+  EMMITER = wb_robot_get_device("emitter");
   wb_receiver_enable(RECIEVER, TIME_STEP);
   //intiailizong compass
   WbDeviceTag compass;
@@ -50,17 +54,43 @@ int main(int argc, char **argv)
   gripper_init();
   //base_turn_left();
   base_goto_init(TIME_STEP);
-  base_goto_set_target(4,4,1.5);
-
+  base_goto_set_target(4,4,0.1234);
+  wb_keyboard_enable(TIME_STEP);
   // Main loop
   while (wb_robot_step(TIME_STEP) != -1)
   {
     
     base_goto_run();
+    bool reached = base_goto_reached();
+    if(reached){
+      //printf("reached\n");
+      send_reached_message(EMMITER);
+    }
+    //base_turn_left();
     const double* pos =wb_gps_get_values(gps);
+    int key = wb_keyboard_get_key();
+    if(key == 68){
+      //if letter a is pressed send in the message hello
+      printf("sending\n");
+      Command scommand;
+      scommand.id = 0;
+      scommand.type = 3;
+      char* data_holder = "hello";
+      scommand.data = data_holder;
+      scommand.data_length = strlen(data_holder)+1;
+      const int byte_stream_length = get_byte_stream_length(scommand.data_length); 
+      char byte_stream[byte_stream_length];
+      
+      construct_message(&scommand,byte_stream,byte_stream_length);
+      int status = wb_emitter_send(EMMITER,byte_stream,byte_stream_length);
+      //blob_array_to_box_array(blob_array,BOX_ARRAY,RED,50);
+
+    }
+    if(key == 67){
+      send_my_position_to_kinect(EMMITER,gps,compass);
+    }
     //printf("%g,%g,%g\n",pos[0],pos[1],pos[2]);
-    
-    //printf("bearing:%g\n",get_bearing_in_degrees(compass));
+    //printf("bearingl:%g\n",get_bearing_in_degrees(compass));
     //const double *north = wb_compass_get_values(compass);
     //printf("%g,%g\n",north[0],north[1]);
     if (wb_receiver_get_queue_length(RECIEVER) > 0)

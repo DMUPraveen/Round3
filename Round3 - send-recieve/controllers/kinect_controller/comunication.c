@@ -2,6 +2,7 @@
 #include <webots/receiver.h>
 #include <webots/emitter.h>
 #include "comunication.h"
+#include <windows.h>
 
 #include <stdio.h>
 #include <math.h>
@@ -78,7 +79,14 @@ void construct_goto_command(char robot,double* position,Command* goto_command){
     
 
 }
+void send_message(Command* scommand,WbDeviceTag emitter){
+    int byte_stream_length = get_byte_stream_length(scommand->data_length);
+    char byte_stream[byte_stream_length];
+    construct_message(scommand,byte_stream,byte_stream_length);
+    wb_emitter_send(emitter,byte_stream,byte_stream_length);
 
+
+}
 void get_target_position(char* data,double* position){
     double* position_ptr = (double*)data;
     for(int i=0; i<3;i++){
@@ -109,4 +117,32 @@ int deconstruct_message(const char *message, int message_size, Command *scommand
     else{
         return 1;//data_holder buffer is not of enough size
     }
+}
+
+void delete_command(Command* scommand){
+    printf("scommand:data%d\n",scommand->data);
+    free(scommand->data);
+}
+
+int message_handler(WbDeviceTag reciever,char ROBOT_ID,Command* scommand){
+    int is_message_recieved =0;
+    if(wb_receiver_get_queue_length(reciever)>0){
+        printf("recieved\n");
+        int message_size = wb_receiver_get_data_size(reciever); 
+        char* message = wb_receiver_get_data(reciever);
+        int data_holder_size = get_data_length(message_size);
+        char* data_holder = (char*)malloc(data_holder_size);
+        deconstruct_message(message,message_size,scommand,data_holder,data_holder_size);
+        wb_receiver_next_packet(reciever);
+        printf("%d\n",scommand->type);
+        printf("data_holder:%d\n",data_holder);
+        if((scommand->id) == ROBOT_ID){
+            return 1;
+        }
+        else{
+            delete_command(scommand);
+            return 0;
+        }
+    }
+    return 0;
 }

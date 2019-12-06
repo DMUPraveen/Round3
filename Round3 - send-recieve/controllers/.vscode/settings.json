@@ -15,6 +15,9 @@
         "image_recognition.h": "c",
         "compass.h": "c",
         "range_finder_lib.h": "c",
-        "receiver.h": "c"
+        "receiver.h": "c",
+        "gps.h": "c",
+        "emitter.h": "c",
+        "math.h": "c"
     }
 }
