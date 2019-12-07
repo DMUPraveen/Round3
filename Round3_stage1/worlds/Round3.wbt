@@ -1,0 +1,705 @@
+#VRML_SIM R2019b utf8
+WorldInfo {
+  basicTimeStep 16
+  contactProperties [
+    ContactProperties {
+      material1 "InteriorWheelMat"
+      coulombFriction [
+        1.8, 0, 0.2
+      ]
+      frictionRotation -0.9648 0
+      bounce 0
+      forceDependentSlip [
+        10, 0
+      ]
+    }
+    ContactProperties {
+      material1 "ExteriorWheelMat"
+      coulombFriction [
+        1.8, 0, 0.2
+      ]
+      frictionRotation 0.9648 0
+      bounce 0
+      forceDependentSlip [
+        10, 0
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.7209280211997984 -0.6659446715467642 -0.1917823836733068 5.5230952572986824
+  position 2.133837075075643 2.6140769015009093 3.672967086600448
+  follow "KBOTR"
+}
+Ceiling {
+  translation 0 3 0
+}
+TexturedBackground {
+  texture "noon_sunny_empty"
+}
+DEF PL1 PointLight {
+  attenuation 0 0 1
+  intensity 5
+  location 2.5 2.5 2.5
+}
+DEF PL2 PointLight {
+  attenuation 0 0 1
+  intensity 5
+  location 2.5 2.5 -2.5
+}
+DEF PL3 PointLight {
+  attenuation 0 0 1
+  intensity 5
+  location -2.5 2.5 2.5
+}
+DEF PL4 PointLight {
+  attenuation 0 0 1
+  intensity 5
+  location -2.5 2.5 -2.5
+}
+RectangleArena {
+  floorSize 10 10
+  floorTileSize 20 20
+  floorAppearance Appearance {
+    material Material {
+      diffuseColor 0.9 0.9 0.9
+      shininess 0.19999999999999998
+    }
+  }
+  wallHeight 3
+  wallColor 1 1 1
+}
+DEF KINECTS Robot {
+  translation 0 2.9 0
+  rotation 1 0 0 -1.572
+  children [
+    Receiver {
+    }
+    Emitter {
+    }
+    Kinect {
+      hidden translation_1 0 0.050000006612453414 -5.493428534730782e-06
+    }
+  ]
+  controller "kinect_controller"
+  supervisor TRUE
+}
+DEF KBOTR Youbot {
+  translation 0 0.12 -1
+  name "KBOTR"
+  controller "kbotR_controller"
+  supervisor TRUE
+}
+DEF KBOTB Youbot {
+  translation 0 0.12 1
+  name "KBOTB"
+  controller "kbotB_controller"
+  supervisor TRUE
+  bodySlot [
+    Receiver {
+    }
+    Emitter {
+    }
+    GPS {
+    }
+    Compass {
+    }
+  ]
+}
+DEF KKB0 Solid {
+  translation -1 0.042 0
+  children [
+    DEF BShape Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0 1 0
+        }
+      }
+      geometry Box {
+        size 0.049999999999999996 0.049999999999999996 0.049999999999999996
+      }
+    }
+  ]
+  boundingObject USE BShape
+  physics Physics {
+  }
+  recognitionColors [
+    0 1 0
+  ]
+}
+DEF KKB10 Solid {
+  translation -1 0.042 1
+  children [
+    DEF BShapeR Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 0 0
+        }
+      }
+      geometry Box {
+        size 0.049999999999999996 0.05 0.05
+      }
+    }
+  ]
+  name "solid(50)"
+  boundingObject USE BShapeR
+  physics Physics {
+  }
+  recognitionColors [
+    1 0 0
+  ]
+}
+DEF KKB1 Solid {
+  translation -1 0.042 0.1
+  children [
+    USE BShape
+  ]
+  name "solid(1)"
+  boundingObject USE BShape
+  physics Physics {
+  }
+  recognitionColors [
+    0 1 0
+  ]
+}
+DEF KKB2 Solid {
+  translation -1 0.042 0.2
+  children [
+    USE BShape
+  ]
+  name "solid(2)"
+  boundingObject USE BShape
+  physics Physics {
+  }
+  recognitionColors [
+    0 1 0
+  ]
+}
+DEF KKB3 Solid {
+  translation -1 0.042 0.3
+  children [
+    USE BShape
+  ]
+  name "solid(3)"
+  boundingObject USE BShape
+  physics Physics {
+  }
+  recognitionColors [
+    0 1 0
+  ]
+}
+DEF KKB4 Solid {
+  translation -1 0.042 0.4
+  children [
+    USE BShape
+  ]
+  name "solid(4)"
+  boundingObject USE BShape
+  physics Physics {
+  }
+  recognitionColors [
+    0 1 0
+  ]
+}
+DEF KKB5 Solid {
+  translation -1 0.042 0.5
+  children [
+    USE BShape
+  ]
+  name "solid(5)"
+  boundingObject USE BShape
+  physics Physics {
+  }
+  recognitionColors [
+    0 1 0
+  ]
+}
+DEF KKB6 Solid {
+  translation -1 0.042 0.6
+  children [
+    USE BShape
+  ]
+  name "solid(6)"
+  boundingObject USE BShape
+  physics Physics {
+  }
+  recognitionColors [
+    0 1 0
+  ]
+}
+DEF KKB7 Solid {
+  translation -1 0.042 0.7
+  children [
+    USE BShape
+  ]
+  name "solid(7)"
+  boundingObject USE BShape
+  physics Physics {
+  }
+  recognitionColors [
+    0 1 0
+  ]
+}
+DEF KKB8 Solid {
+  translation -1 0.042 0.8
+  children [
+    USE BShape
+  ]
+  name "solid(8)"
+  boundingObject USE BShape
+  physics Physics {
+  }
+  recognitionColors [
+    0 1 0
+  ]
+}
+DEF KKB9 Solid {
+  translation -1 0.042 0.9
+  children [
+    USE BShape
+  ]
+  name "solid(9)"
+  boundingObject USE BShape
+  physics Physics {
+  }
+  recognitionColors [
+    0 1 0
+  ]
+}
+DEF KKB11 Solid {
+  translation -1 0.042 1.1
+  children [
+    USE BShapeR
+  ]
+  name "solid(11)"
+  boundingObject USE BShapeR
+  physics Physics {
+  }
+  recognitionColors [
+    1 0 0
+  ]
+}
+DEF KKB12 Solid {
+  translation -1 0.042 1.2
+  children [
+    USE BShapeR
+  ]
+  name "solid(12)"
+  boundingObject USE BShapeR
+  physics Physics {
+  }
+  recognitionColors [
+    1 0 0
+  ]
+}
+DEF KKB13 Solid {
+  translation -1 0.042 1.3
+  children [
+    USE BShapeR
+  ]
+  name "solid(13)"
+  boundingObject USE BShapeR
+  physics Physics {
+  }
+  recognitionColors [
+    1 0 0
+  ]
+}
+DEF KKB14 Solid {
+  translation -1 0.042 1.4
+  children [
+    USE BShapeR
+  ]
+  name "solid(14)"
+  boundingObject USE BShapeR
+  physics Physics {
+  }
+  recognitionColors [
+    1 0 0
+  ]
+}
+DEF KKB15 Solid {
+  translation -1 0.042 1.5
+  children [
+    USE BShapeR
+  ]
+  name "solid(15)"
+  boundingObject USE BShapeR
+  physics Physics {
+  }
+  recognitionColors [
+    1 0 0
+  ]
+}
+DEF KKB16 Solid {
+  translation -1 0.042 1.6
+  children [
+    USE BShapeR
+  ]
+  name "solid(16)"
+  boundingObject USE BShapeR
+  physics Physics {
+  }
+  recognitionColors [
+    1 0 0
+  ]
+}
+DEF KKB17 Solid {
+  translation -1 0.042 1.7
+  children [
+    USE BShapeR
+  ]
+  name "solid(17)"
+  boundingObject USE BShapeR
+  physics Physics {
+  }
+  recognitionColors [
+    1 0 0
+  ]
+}
+DEF KKB18 Solid {
+  translation -1 0.042 1.8
+  children [
+    USE BShapeR
+  ]
+  name "solid(18)"
+  boundingObject USE BShapeR
+  physics Physics {
+  }
+  recognitionColors [
+    1 0 0
+  ]
+}
+DEF KKB19 Solid {
+  translation -1 0.042 1.9
+  children [
+    USE BShapeR
+  ]
+  name "solid(19)"
+  boundingObject USE BShapeR
+  physics Physics {
+  }
+  recognitionColors [
+    1 0 0
+  ]
+}
+DEF KKB20 Solid {
+  translation -1 0.042 2
+  children [
+    DEF BShapeB Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0 0 1
+        }
+      }
+      geometry Box {
+        size 0.049999999999999996 0.049999999999999996 0.049999999999999996
+      }
+    }
+  ]
+  name "solid(20)"
+  boundingObject USE BShapeB
+  physics Physics {
+  }
+  recognitionColors [
+    0 0 1
+  ]
+}
+DEF KKB21 Solid {
+  translation -1 0.042 2.1
+  children [
+    USE BShapeB
+  ]
+  name "solid(21)"
+  boundingObject USE BShapeB
+  physics Physics {
+  }
+  recognitionColors [
+    0 0 1
+  ]
+}
+DEF KKB22 Solid {
+  translation -1 0.042 2.2
+  children [
+    USE BShapeB
+  ]
+  name "solid(22)"
+  boundingObject USE BShapeB
+  physics Physics {
+  }
+  recognitionColors [
+    0 0 1
+  ]
+}
+DEF KKB23 Solid {
+  translation -1 0.042 2.3
+  children [
+    USE BShapeB
+  ]
+  name "solid(23)"
+  boundingObject USE BShapeB
+  physics Physics {
+  }
+  recognitionColors [
+    0 0 1
+  ]
+}
+DEF KKB24 Solid {
+  translation -1 0.042 2.4
+  children [
+    USE BShapeB
+  ]
+  name "solid(24)"
+  boundingObject USE BShapeB
+  physics Physics {
+  }
+  recognitionColors [
+    0 0 1
+  ]
+}
+DEF KKB25 Solid {
+  translation -1 0.042 2.5
+  children [
+    USE BShapeB
+  ]
+  name "solid(25)"
+  boundingObject USE BShapeB
+  physics Physics {
+  }
+  recognitionColors [
+    0 0 1
+  ]
+}
+DEF KKB26 Solid {
+  translation -1 0.042 2.6
+  children [
+    USE BShapeB
+  ]
+  name "solid(26)"
+  boundingObject USE BShapeB
+  physics Physics {
+  }
+  recognitionColors [
+    0 0 1
+  ]
+}
+DEF KKB27 Solid {
+  translation -1 0.042 2.7
+  children [
+    USE BShapeB
+  ]
+  name "solid(27)"
+  boundingObject USE BShapeB
+  physics Physics {
+  }
+  recognitionColors [
+    0 0 1
+  ]
+}
+DEF KKB28 Solid {
+  translation -1 0.042 2.8
+  children [
+    USE BShapeB
+  ]
+  name "solid(28)"
+  boundingObject USE BShapeB
+  physics Physics {
+  }
+  recognitionColors [
+    0 0 1
+  ]
+}
+DEF KKB29 Solid {
+  translation -1 0.042 2.9
+  children [
+    USE BShapeB
+  ]
+  name "solid(29)"
+  boundingObject USE BShapeB
+  physics Physics {
+  }
+  recognitionColors [
+    0 0 1
+  ]
+}
+DEF SLOTS_1 Solid {
+  translation 0 -0.01 0
+  children [
+    DEF SLOTS Group {
+      children [
+        Transform {
+          children [
+            DEF SLOTS_GROUND Shape {
+              appearance DEF SLOTSB_COLOR PBRAppearance {
+                baseColor 0.7 0.7 0.7
+                roughness 0.631373
+                metalness 0
+              }
+              geometry Box {
+                size 0.5 0.01 0.5
+              }
+            }
+          ]
+        }
+        Transform {
+          translation 0 0.031 0.225
+          children [
+            DEF ROWS Shape {
+              appearance DEF SLOTS_COLOR PBRAppearance {
+                baseColor 0.3 0.3 0.3
+                roughness 0.631373
+                metalness 0
+              }
+              geometry Box {
+                size 0.5 0.04 0.04
+              }
+            }
+          ]
+        }
+        Transform {
+          translation 0 0.031 0.113
+          children [
+            USE ROWS
+          ]
+        }
+        Transform {
+          translation 0 0.031 -0.113
+          children [
+            USE ROWS
+          ]
+        }
+        Transform {
+          translation 0 0.031 0
+          children [
+            USE ROWS
+          ]
+        }
+        Transform {
+          translation 0 0.031 -0.225
+          children [
+            USE ROWS
+          ]
+        }
+        Transform {
+          translation -0.225 0.03 0
+          children [
+            DEF COLUMNS Shape {
+              appearance USE SLOTS_COLOR
+              geometry Box {
+                size 0.04 0.04 0.5
+              }
+            }
+          ]
+        }
+        Transform {
+          translation -0.113 0.03 0
+          children [
+            USE COLUMNS
+          ]
+        }
+        Transform {
+          translation 0 0.03 0
+          children [
+            USE COLUMNS
+          ]
+        }
+        Transform {
+          translation 0.113 0.03 0
+          children [
+            USE COLUMNS
+          ]
+        }
+        Transform {
+          translation 0.225 0.03 0
+          children [
+            USE COLUMNS
+          ]
+        }
+      ]
+    }
+  ]
+  name "slot 1"
+  boundingObject DEF BOUNDING_SLOTS Group {
+    children [
+      Transform {
+        translation -0.18 0.03 0
+        children [
+          USE COLUMNS
+        ]
+      }
+      Transform {
+        translation -0.09 0.03 0
+        children [
+          USE COLUMNS
+        ]
+      }
+      Transform {
+        translation 0 0.03 0
+        children [
+          USE COLUMNS
+        ]
+      }
+      Transform {
+        translation 0.09 0.03 0
+        children [
+          USE COLUMNS
+        ]
+      }
+      Transform {
+        translation 0.18 0.03 0
+        children [
+          USE COLUMNS
+        ]
+      }
+      Transform {
+        translation 0 0.03 0.135
+        children [
+          USE ROWS
+        ]
+      }
+      Transform {
+        translation 0 0.03 0.045
+        children [
+          USE ROWS
+        ]
+      }
+      Transform {
+        translation 0 0.03 -0.045
+        children [
+          USE ROWS
+        ]
+      }
+      Transform {
+        translation 0 0.03 -0.135
+        children [
+          USE ROWS
+        ]
+      }
+      Transform {
+        children [
+          USE SLOTS_GROUND
+        ]
+      }
+    ]
+  }
+}
+DEF TOWER Solid {
+  translation 1 0.11 0
+  children [
+    DEF TOWER_sh Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.7000000000000001 0.7000000000000001 0.7000000000000001
+        }
+      }
+      geometry DEF TOWER_cy Cylinder {
+        height 0.41999998688697815
+        radius 0.1
+      }
+    }
+  ]
+  name "solid(10)"
+  boundingObject USE TOWER_sh
+  physics Physics {
+  }
+}
