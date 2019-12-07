@@ -129,7 +129,7 @@ int main(int argc, char **argv)
       }
     }
     if(self_status == 2){
-      send_reached_message(EMMITER);
+      send_reached_message(EMMITER,SELF_ID);
       self_status = 3;
     }
     Command command;

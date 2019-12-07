@@ -5,10 +5,13 @@
 #include "comunication.h"
 #include "air_control.h"
 
+#define KINECT_SELF_ID 0
+
 void request_robot_position(WbDeviceTag emitter,char ROBOT_ID){
     Command request_position;
     request_position.id = ROBOT_ID;
     request_position.type = REQUEST_POSITION;
+    request_position.caller_id = KINECT_SELF_ID;
     request_position.data_length = 1;
     char data = 0;
     request_position.data = &data;
@@ -20,6 +23,7 @@ void send_goto_command(WbDeviceTag emitter,char ROBOT_ID,double position[3]){
     Command goto_command;
     goto_command.id = ROBOT_ID;
     goto_command.type = GOTO;
+    goto_command.caller_id = KINECT_SELF_ID;
     goto_command.data_length = sizeof(double)*3;
     char* cpositions = (char*)position;
     char data_holder[goto_command.data_length];
@@ -34,6 +38,7 @@ void send_do_animation_command(WbDeviceTag emmiter,char ROBOT_ID,char ANIMATION)
     Command do_animation;
     do_animation.id = ROBOT_ID;
     do_animation.data_length = 1;
+    do_animation.caller_id = KINECT_SELF_ID;
     do_animation.data = &ANIMATION;
     do_animation.type = DO_ANIMATION;
     send_message(&do_animation,emmiter);

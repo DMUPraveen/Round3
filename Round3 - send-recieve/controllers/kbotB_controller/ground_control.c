@@ -15,11 +15,12 @@ double get_bearing_in_radinas(WbDeviceTag compass) {
   
   return rad;
 }
-void send_reached_message(WbDeviceTag Emitter){
+void send_reached_message(WbDeviceTag Emitter,char SELF_ID){
     Command command;
     command.type = REACHED;
     command.id = 0;
     command.data_length = 1;
+    command.caller_id = SELF_ID;
     char data = 0;
     char* data_holder = &data;
     command.data = data_holder;
@@ -31,10 +32,11 @@ void send_reached_message(WbDeviceTag Emitter){
 
 
 }
-void position_send_constructor(double* positions,double* bearing,char robot_id,char* data_holder,Command* my_position){
+void position_send_constructor(double* positions,double* bearing,char robot_id,char* data_holder,Command* my_position,char SELF_ID){
     my_position->id = robot_id;
     my_position->data_length = sizeof(double)*4;
     my_position->type = SEND_POSITION;
+    my_position ->caller_id =  SELF_ID;
     char* cpositions = (char*)positions;
     char* cbearing = (char*)bearing;
     for(int i=0;i<sizeof(double)*3;i++){
@@ -50,7 +52,7 @@ void position_send_constructor(double* positions,double* bearing,char robot_id,c
 
 
 
-void send_my_position_to_kinect(WbDeviceTag Emmiter,WbDeviceTag Gps,WbDeviceTag Compass){
+void send_my_position_to_kinect(WbDeviceTag Emmiter,WbDeviceTag Gps,WbDeviceTag Compass,char SELF_ID){
     Command my_position;
     double* positions = wb_gps_get_values(Gps);
     //double positions[3] = {1.1,2.1,3.1};
@@ -58,7 +60,7 @@ void send_my_position_to_kinect(WbDeviceTag Emmiter,WbDeviceTag Gps,WbDeviceTag 
     //double bearing = 4.1;
     double* bearing_ptr = &bearing;
     char data_holder[sizeof(double)*4];
-    position_send_constructor(positions,bearing_ptr,0,data_holder,&my_position);
+    position_send_constructor(positions,bearing_ptr,0,data_holder,&my_position,SELF_ID);
     int byte_stream_length = get_byte_stream_length(my_position.data_length);
     char byte_stream[byte_stream_length];
     construct_message(&my_position,byte_stream,byte_stream_length);

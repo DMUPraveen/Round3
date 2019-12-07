@@ -21,6 +21,7 @@ typedef struct comunication{
 typedef struct command{
     char type;
     char id;
+    char caller_id;
     int data_length;
     char* data
 }Command;
@@ -30,8 +31,8 @@ int deconstruct_message(const char *message, int message_size, Command *scommand
 int get_data_length(int size);
 int construct_message(Command *scommand, char *byte_stream, int stream_length);
 int get_byte_stream_length(int data_length);
-void get_target_position(char* data,double* position);
-void construct_goto_command(char robot,double* position,Command* goto_command);
+//void get_target_position(char* data,double* position);
+//void construct_goto_command(char robot,double* position,Command* goto_command);
 int message_handler(WbDeviceTag reciever,char ROBOT_ID,Command* scommand);
 void delete_command(Command* scommand);
 void send_message(Command* scommand,WbDeviceTag emitter);

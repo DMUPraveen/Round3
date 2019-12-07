@@ -189,7 +189,7 @@ int main(int argc, char **argv) {
   */
     if(kbotB_status ==0){
       kbotB_status =1;
-      double position[3] = {4,4,0};
+      double position[3] = {4,4,-M_PI_4};
       send_goto_command(EMITTER,KBOTB_ID,position);
       printf("sending goto message to KbotB\n");
 
@@ -204,6 +204,7 @@ int main(int argc, char **argv) {
         //printf("boom%d\n",kbotB_status);
         kbotB_status =2;
         printf("KbotB has reached its destination\n");
+        printf("%d\n",command.caller_id);
       }
       delete_command(&command);
       //free(command.data);

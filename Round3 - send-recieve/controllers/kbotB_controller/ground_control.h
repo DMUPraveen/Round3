@@ -13,6 +13,6 @@ enum recieved_messages{
     
     
 };
-void send_my_position_to_kinect(WbDeviceTag Emmiter,WbDeviceTag Gps,WbDeviceTag Compass);
-void send_reached_message(WbDeviceTag Emitter);
+void send_my_position_to_kinect(WbDeviceTag Emmiter,WbDeviceTag Gps,WbDeviceTag Compass,char SELF_ID);
+void send_reached_message(WbDeviceTag Emitter,char SELF_ID);
 #endif
