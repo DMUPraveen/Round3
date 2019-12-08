@@ -1,0 +1,11 @@
+Webots Proto Cache File version 1.4
+protoFileHash: f09f5e5802a25dd97cb557bc8e542027
+containsDevices: 0
+baseType: Shape
+slotType: 
+parameters: 
+tags: hidden
+license:  Copyright Cyberbotics Ltd. Licensed for use only with Webots.
+licenseUrl:  https://cyberbotics.com/webots_assets_license
+documentationUrl: 
+info: subwheel\slowpoly\smesh\ncreated\sfrom\sthe\sCAD\sfiles\sof\sthe\syouBot\susing\sBlender\n
