@@ -1,0 +1,11 @@
+Webots Proto Cache File version 1.4
+protoFileHash: 42e73b4d1f1a2598edb3a26bd999727f
+containsDevices: 1
+baseType: HingeJoint
+slotType: 
+parameters: translation,anchor,name,sensorName
+tags: hidden
+license:  Copyright Cyberbotics Ltd. Licensed for use only with Webots.
+licenseUrl:  https://cyberbotics.com/webots_assets_license
+documentationUrl: 
+info: omnidirectionnal\swheel\swith\s2D\scoulomb\sfriction\n
